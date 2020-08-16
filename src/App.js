@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getMyWallet, getBalance } from './Web3/web3-contract';
+import { getMyWallet, getBalance, deposit, withdraw } from './Web3/web3-contract';
 import './App.css';
 
 class App extends Component {
@@ -9,7 +9,8 @@ class App extends Component {
 		this.state = {
 			owner: '',
 			myWallet: '',
-			balance: ''
+			balance: '',
+			amount: 1
 		}
 	}
 
@@ -24,6 +25,21 @@ class App extends Component {
 		
 	}
 
+	onInputChange = (e) => {
+		e.preventDefault();
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	handelDeposit = () => {
+		deposit(this.state.myWallet, this.state.owner, this.state.amount)
+			.then(balance => this.setState({ balance }));
+	}
+
+	handelWithdraw = () => {
+		withdraw(this.state.myWallet, this.state.owner, this.state.amount)
+			.then(balance => this.setState({ balance }));
+	}
+
 	render() {
 		return (
 			<div className="container">
@@ -31,11 +47,18 @@ class App extends Component {
 					<div className="card-title">Wallet</div>
 					<div className="card-display-balance">Balance: { this.state.balance }</div>
 					<div className="card-enter-amount">
-						<input className="input-amount" type="number" name="amount" placeholder="enter amount" />
+						<input className="input-amount" min="1" 
+							type="number" name="amount" placeholder="enter amount" 
+							onChange={this.onInputChange}
+						/>
 					</div>
 					<div className="card-actions">
-						<input className="button" type="button" value="Deposit" />
-						<input className="button" type="button" value="Withdraw" />
+						<input className="button" type="button" value="Deposit" 
+							onClick={this.handelDeposit}
+						/>
+						<input className="button" type="button" value="Withdraw"  
+							onClick={this.handelWithdraw}
+						/>
 					</div>
 				</div>
 			</div>
