@@ -50,10 +50,44 @@ const ABI = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getOwner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "wallet",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ];
 
-const ADDERSS = '0x867893309f3924c6c1cecc0b530277a5eda8fd9e';
+const ADDERSS = '0xb6210012ed29a95308d87961d098380bba19bccd'
+//'0x867893309f3924c6c1cecc0b530277a5eda8fd9e';
 
 const providerOptions = {
   walletconnect: {
