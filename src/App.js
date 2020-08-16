@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { getMyWallet, getBalance } from './Web3/web3-contract';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+	constructor(props) {
+		super(props)
+		this.state = {
+			myWallet: '',
+			balance: ''
+		}
+	}
+
+	componentDidMount() {
+		getMyWallet()
+			.then( myWallet => {
+				this.setState({ myWallet });
+				getBalance(this.state.myWallet)
+					.then(balance => this.setState({ balance }));
+			});
+		
+	}
+
+	render() {
+		return (
+			<div className="container">
+				<div className="card">
+					<div className="card-title">Wallet</div>
+					<div className="card-display-balance">Balance: { this.state.balance }</div>
+					<div className="card-enter-amount">
+						<input className="input-amount" type="number" name="amount" placeholder="enter amount" />
+					</div>
+					<div className="card-actions">
+						<input className="button" type="button" value="Deposit" />
+						<input className="button" type="button" value="Withdraw" />
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default App;
