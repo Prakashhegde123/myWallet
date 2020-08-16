@@ -7,6 +7,7 @@ class App extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			owner: '',
 			myWallet: '',
 			balance: ''
 		}
@@ -14,9 +15,10 @@ class App extends Component {
 
 	componentDidMount() {
 		getMyWallet()
-			.then( myWallet => {
-				this.setState({ myWallet });
-				getBalance(this.state.myWallet)
+			.then( wallet => {
+				const { myWallet, owner } = wallet;
+				this.setState({ myWallet, owner });
+				getBalance(this.state.myWallet, this.state.owner)
 					.then(balance => this.setState({ balance }));
 			});
 		
