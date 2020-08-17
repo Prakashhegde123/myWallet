@@ -33,20 +33,46 @@ export async function getMyWallet() {
 }
 
 export async function getBalance(myWallet, owner) {
-    const balance = await myWallet.methods.getBalance(owner).call();
-    return balance;
+    try{
+		const balance = await myWallet.methods.getBalance(owner).call();
+		return balance;
+	}catch(err){
+		return 'unable to fetch your balance';
+	}
 }
 
 export async function deposit(myWallet, owner, amount) {
-	await myWallet.methods.deposit(amount, owner).send({from: owner});
 
-	const balance = await myWallet.methods.getBalance(owner).call();
-    return balance;
+	try{
+		await myWallet.methods.deposit(amount, owner).send({from: owner});
+	}catch(err){
+		// TODO:/ show pop-up
+		console.log(`error: ${err}`);
+		return null;
+	}
+	
+	try{
+		const balance = await myWallet.methods.getBalance(owner).call();
+		return balance;
+	}catch(err){
+		return null;
+	}
 }
 
 export async function withdraw(myWallet, owner, amount) {
-	await myWallet.methods.withdraw(amount, owner).send({from: owner});
+	
+	try{
+		await myWallet.methods.withdraw(amount, owner).send({from: owner});
+	}catch(err){
+		// TODO:/ show pop-up
+		console.log(`error: ${err}`);
+		return null;
+	}
 
-	const balance = await myWallet.methods.getBalance(owner).call();
-    return balance;
+	try{
+		const balance = await myWallet.methods.getBalance(owner).call();
+		return balance;
+	}catch(err){
+		return null;
+	}
 }
