@@ -44,10 +44,13 @@ export async function getBalance(myWallet, owner) {
 export async function deposit(myWallet, owner, amount) {
 
 	try{
+		if(amount <= 0){
+			throw Error("invalid input")
+		}
 		await myWallet.methods.deposit(amount, owner).send({from: owner});
 	}catch(err){
 		// TODO:/ show pop-up
-		console.log(`error: ${err}`);
+		console.log(`error: ${err.message}`);
 		return null;
 	}
 	
@@ -62,10 +65,13 @@ export async function deposit(myWallet, owner, amount) {
 export async function withdraw(myWallet, owner, amount) {
 	
 	try{
+		if(amount <= 0){
+			throw Error("invalid input")
+		}
 		await myWallet.methods.withdraw(amount, owner).send({from: owner});
 	}catch(err){
 		// TODO:/ show pop-up
-		console.log(`error: ${err}`);
+		console.log(`error: ${err.message}`);
 		return null;
 	}
 

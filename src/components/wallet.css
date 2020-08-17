@@ -52,3 +52,21 @@
 	border-bottom: 2px black solid;
 	font-size: 1.2em;
 }
+
+.popup-body {
+	display: flex;
+	align-items: center;
+	padding: 15px;
+	background-color: #282c34;
+	color: #FFFFFF;
+	font-size: 1.2em;
+}
+
+.popup-close {
+	margin-left: auto;
+	cursor: pointer;
+	color: #FF0000;
+	background-color: #FFFFFF;
+	padding: 5px;
+	border-radius: 2px;
+}
